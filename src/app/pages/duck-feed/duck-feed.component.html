@@ -1,5 +1,110 @@
-<p>duck-feed works!</p>
+<div class="row container" [hidden]="formHidden">
+    <form class="col" [formGroup]="formDuckFeed">
 
-<button mat-button color="warn" (click)="new()"> 
-    New Duck Feed  
-</button> 
+        <div>
+            <mat-form-field>
+                <input matInput type="text" [matAutocomplete]="typeOfFoodAutocomplete" [formControl]="type_of_food" 
+                       required="true" placeholder="Type of food" />
+                <mat-autocomplete #typeOfFoodAutocomplete="matAutocomplete" 
+                    [displayWith]="displayName.bind(this)" 
+                    (optionSelected)="onTypeOfFoodSelected($event)">
+                    <mat-option *ngFor="let type of type_of_food_data" [value]="type">
+                        <span>{{type.name}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error>Type of Food is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="space-between-elements">
+                <input matInput type="text" [matAutocomplete]="foodAutocomplete" [formControl]="food" 
+                       required="true" placeholder="Food" />
+                <mat-autocomplete #foodAutocomplete="matAutocomplete" 
+                   [displayWith]="displayName.bind(this)">
+                    <mat-option *ngFor="let food of food_data_filtered" [value]="food">
+                        <span>{{food.name}}</span>
+                    </mat-option>
+                </mat-autocomplete>         
+                <mat-error>Food is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <input matInput type="number" [formControl]="quantity" required="true" placeholder="Quantity">
+                <span matSuffix>g</span>
+                <mat-error>Quantity is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <input matInput type="text" [matAutocomplete]="provinceAutocomplete" [formControl]="province" 
+                        required="true" placeholder="Province" />
+                <mat-autocomplete #provinceAutocomplete="matAutocomplete" 
+                    [displayWith]="displayName.bind(this)" 
+                    (optionSelected)="onProvinceSelected($event)">
+                    <mat-option *ngFor="let province of provinces" [value]="province">
+                        <span>{{province.name}}</span>
+                    </mat-option>
+                </mat-autocomplete>         
+                <mat-error>Province is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="space-between-elements">
+                <input matInput type="text" [matAutocomplete]="cityAutocomplete" [formControl]="city" 
+                        required="true" placeholder="City" />
+                <mat-autocomplete #cityAutocomplete="matAutocomplete">
+                    <mat-option *ngFor="let city of cities" [value]="city.name">
+                        <span>{{city.name}}</span>
+                    </mat-option>
+                </mat-autocomplete>                    
+                <mat-error>City is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <mat-label>Frequency</mat-label>
+                <input matInput type="number" [formControl]="frequency">
+            </mat-form-field>
+
+            <mat-form-field class="space-between-elements">
+                <input matInput type="text" 
+                    [matAutocomplete]="periodAutocomplete" 
+                    [formControl]="period"
+                    placeholder="Period" />
+                <mat-autocomplete #periodAutocomplete="matAutocomplete">
+                    <mat-option *ngFor="let period of periods" [value]="period">
+                        <span>{{period}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    
+        <div class="div-button">
+            <button mat-button color="warn" [disabled]="!formDuckFeed.valid" (click)="new()"> 
+                SUBMIT  
+            </button> 
+        </div>
+
+        <div *ngIf="messageError !== ''">
+            {{messageError}}
+        </div>
+    </form>
+</div>
+
+<div class="row container" [hidden]="!formHidden">
+    <h1>THANK YOU</h1>
+
+    <div>
+        <img src="assets/images/duck_feed2.jpg">
+    </div>
+
+    <h3>
+        <a [routerLink]="['/']">
+            BACK
+        </a>
+    </h3>
+</div>
+
+

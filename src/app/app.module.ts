@@ -9,6 +9,15 @@ import { DuckFeedServiceService } from './services/duck-feed-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER } from '@angular/core';
 import { AppConfig } from './app.config';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -23,7 +32,13 @@ export function initializeApp(appConfig: AppConfig) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule,
+    MatSelectModule, MatListModule, BrowserAnimationsModule
+  ],
+  exports: [
+    CommonModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule,
+    MatSelectModule, MatListModule
   ],
   providers: [
     DuckFeedServiceService,
