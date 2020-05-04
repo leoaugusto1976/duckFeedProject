@@ -84,15 +84,13 @@ export class DuckFeedComponent implements OnInit {
     this.duckFeed.province = this.province.value.name;
     this.duckFeed.quantity = this.quantity.value;
     this.duckFeed.quantity_unit = "g";
-    this.duckFeed.frequency = this.frequency.value;
-    this.duckFeed.period = this.period.value;
-    console.log(this.duckFeed);
+    this.duckFeed.frequency = this.frequency.value === '' ? ' ' : this.frequency.value;
+    this.duckFeed.period = this.period.value === '' ? ' ' : this.period.value;
 
     this.duckFeedService.insert(this.duckFeed).subscribe(
       (data) => {
         this.messageError = '';
         this.formHidden = true;
-        console.log(JSON.parse(data.body));
       },
       (error) => {
         this.formHidden = false;
